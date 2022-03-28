@@ -1,3 +1,11 @@
+const image = [
+    require('../asset/images/image1.jpeg'),
+    require('../asset/images/image2.jpeg'),
+    require('../asset/images/image3.jpeg')
+]
+
+
+
 export const markers = [
     {
         coordinate: {
@@ -5,7 +13,8 @@ export const markers = [
             lng:123.8705
         },
         name: "Tisa Cebu City",
-        descritption:"Siomaian Sa Tisa"
+        descritption: "Siomaian Sa Tisa",
+        image:image[0]
     },
     {
         coordinate: {
@@ -13,7 +22,8 @@ export const markers = [
             lng:123.8795
         },
         name: "Mambaling",
-        descritption:"Shopwise"
+        descritption: "Shopwise",
+        image:image[1]
     },
     {
         coordinate: {
@@ -21,6 +31,7 @@ export const markers = [
             lng:123.8813
         },
         name: "Labangon",
-        descritption:"Daghan Checkpoint"
+        descritption:"Daghan Checkpoint",
+        image:image[2]
     }
 ]
