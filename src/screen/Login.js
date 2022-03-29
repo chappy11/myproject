@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Image,TextInput } from 'react-native'
+import { View, Text, StyleSheet, Image, } from 'react-native'
 import React from 'react'
 import { Button } from '../components/Button';
 import { Button as Btn } from 'react-native-paper';
@@ -6,20 +6,23 @@ import ImagePicker from 'react-native-image-crop-picker';
 import { Color } from '../utils/Themes';
 import Screen from '../components/Screen';
 import { Headline } from 'react-native-paper';
-import { borderColor } from 'react-native/Libraries/Components/View/ReactNativeStyleAttributes';
-
+import { TextInput } from '../components/TextInput';
 const Login = ({navigation}) => {
   
     const openCamera = () => {
         ImagePicker.openCamera({
             width: 300,
             height: 400,
-            cropping: false,
+            cropping: true,
         }).then(image => {
         console.log(image);
         });
     }
-  
+
+    const toRegister = () => {
+        navigation.navigate('Register');
+    }
+
     return (
     <Screen style={{backgroundColor:Color.primary}}>
         <View style={{flex:1}}>
@@ -32,18 +35,20 @@ const Login = ({navigation}) => {
                     </View>
                     <View style={{paddingVertical:5,paddingHorizontal:15}}>
                         <Text style={style.label}>Email</Text>
-                        <TextInput placeholder='Email' style={style.textInput}/>
+                        <TextInput placeholder='Email' />
                     </View>
                       <View style={{paddingVertical:5,paddingHorizontal:15}}>
                         <Text style={style.label}>Password</Text>
-                        <TextInput placeholder='Password' style={style.textInput} secureTextEntry={true}/>
+                        <TextInput placeholder='Password' secureTextEntry={true}/>
                     </View>
                      <View style={{paddingVertical:10,paddingHorizontal:15}}>
-                        <Button color={Color.primary} mode='contained' name="Sign in" onPress={() => navigation.navigate('Auth',{screen:'Home'})}/>
+                        <Button color={Color.primary} mode='contained' name="Sign in" onPress={()=>navigation.navigate('Auth',{screen:'Home'})}/>
                     </View>
                     <View style={{ flex: 1, width: '100%', flexDirection: 'row', justifyContent:'center',alignItems:'center'}}>
                         <Text>Not Registered yet? </Text>
-                        <Btn color={Color.secondary}>Sign Up</Btn>
+                        <Btn
+                            onPress={toRegister}
+                            color={Color.secondary}>Sign Up</Btn>
                     </View>
                     
             </View>
@@ -73,13 +78,7 @@ const style = StyleSheet.create({
         marginTop: 20,
         marginHorizontal: 15
     },
-    textInput: {
-        borderWidth: 0.5,
-        paddingVertical: 10,
-        paddingHorizontal: 15,
-        borderColor: 'grey',
-        borderRadius: 20
-    },
+   
     label: {
         color: 'gray',
         marginBottom: 5,
