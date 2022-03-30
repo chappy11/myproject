@@ -4,7 +4,7 @@ import React,{useState} from 'react';
 import { StyleSheet, Text, View,Image,Dimensions, ScrollView,TouchableOpacity } from 'react-native';
 import MapView, { Callout, Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import Swiper from 'react-native-swiper';
-
+import { Provider as PaperProvider } from 'react-native-paper';
 
 import { markers } from './data/markers';
 import { MainRoute } from './src/routes/MainRoute';
@@ -22,9 +22,12 @@ export default function App() {
   const [index, setindex] = useState(0);
 
   return (
-    <NavigationContainer>
+      <PaperProvider>
+       <NavigationContainer>
         <MainRoute/>
     </NavigationContainer>
+    </PaperProvider>
+  
  
   );
 }

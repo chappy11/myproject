@@ -4,7 +4,8 @@ import SplashScreen from '../screen/SplashScreen';
 import Login from '../screen/Login';
 import Register from '../screen/Register';
 import Home from '../screen/Home';
-
+import ViewMotor from '../screen/ViewMotor'
+import CreateTransaction from '../screen/CreateTransaction';
 const MainStack = createNativeStackNavigator();
 
 export const MainRoute = () => (
@@ -28,7 +29,9 @@ export const UnauthRoute = () => (
 const AuthStack = createNativeStackNavigator();
 
 export const AuthRoute = () => (
-    <AuthStack.Navigator>
-        <AuthStack.Screen name="Home" component={Home}/>
+    <AuthStack.Navigator screenOptions={{headerShown:false}}>
+        <AuthStack.Screen name="Home" component={Home} />
+        <AuthStack.Screen name="View Motor" component={ViewMotor} />
+        <AuthStack.Screen name="Create Transaction" component={CreateTransaction}/>
     </AuthStack.Navigator>
 );

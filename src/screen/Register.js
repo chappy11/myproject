@@ -3,13 +3,14 @@ import React,{useState} from 'react'
 import Screen from '../components/Screen'
 import { Color } from '../utils/Themes'
 import {Func} from '../utils/Func'
-import { Caption, Headline, Title } from 'react-native-paper'
+import { Caption, Checkbox, Dialog, Headline, Title } from 'react-native-paper'
 import ImageCropPicker from 'react-native-image-crop-picker'
 import { TextInput } from '../components/TextInput'
 import { Button } from '../components/Button'
-import { ToastAndroid } from 'react-native-web'
+
 const Register = () => {
- 
+  const [read, setread] = useState(false);
+  const [isAccept, setisAccept] = useState(false);
   const [img, setimg] = useState("");   
   const [data, setdata] = useState({
     image: "none",
@@ -63,6 +64,14 @@ const Register = () => {
       ToastAndroid.show("Password do not match", ToastAndroid.SHORT);
     } else if (Func.isValidPhone(data.contact)) {
       ToastAndroid.show("Invalid Phone Number", ToastAndroid.SHORT);
+    } else if (!isAccept) {
+      ToastAndroid.show("Please Accept and Read Tourmo Terms and Regulation", ToastAndroid.SHORT);
+    } else if (data.image === "none") {
+      ToastAndroid.show("Please put your picture",ToastAndroid.SHORT)
+    } else if (data.license === "none") {
+      ToastAndroid.show("Please put your Driver's License")
+    }else {
+      ToastAndroid.show("Succesfully Registered", ToastAndroid.SHORT);
     }
   }
   return (
@@ -121,12 +130,45 @@ const Register = () => {
               
             </TouchableOpacity>
           </View>
-          <View  style={{...style.inputView,marginTop:30}}>
-            <Button name="Sign Up" mode='contained' color={ Color.primary}/>
+          <TouchableOpacity style={{
+            display: 'flex', flexDirection: "row", ...style.inputView, height: 100, alignItems: 'center'
+          }}
+            onPress={()=>setread(!read)}
+          >
+            <Checkbox status={isAccept ? 'checked' : 'unchecked'} /> 
+            <Text>Accept Terms and Agreement</Text>
+          </TouchableOpacity>
+          <View  style={{...style.inputView,marginTop:15}}>
+            <Button name="Sign Up" mode='contained' onPress={onSubmit} color={ Color.primary}/>
           </View>
         </ScrollView>
       </View>
+         
       
+      <Dialog onDismiss={() => setread(!read)} visible={read}>
+            <Dialog.Title>Terms and Agreement</Dialog.Title>
+            <Dialog.ScrollArea>
+              <Text>Terms and Condition bla bla</Text>
+            </Dialog.ScrollArea>
+        <Dialog.Actions>
+          <View style={{display:'flex',flexDirection:'row'}}>
+            <View style={{marginHorizontal:2}}>
+              <Button name={isAccept ? "Unaccept" : "Accept"} mode='contained' color={Color.primary}
+                onPress={() => {
+                  setisAccept(!isAccept)
+                  setread(!read)
+                }} />
+            </View>       
+            <View>
+              <Button name="Close" mode='contained' color={Color.danger} onPress={()=>setread(!read)}/>
+            </View>
+           
+              
+          </View>
+        
+            </Dialog.Actions>
+          </Dialog>
+
     </Screen>
   )
 }
